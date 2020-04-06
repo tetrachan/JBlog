@@ -30,11 +30,11 @@ twitter_username: whichjanna
 github_username:  tetrachan
 
 # Build settings
-# theme: minima
-remote_theme: "mmistakes/minimal-mistakes@4.19.1"
+theme: minima
+# remote_theme: "mmistakes/minimal-mistakes@4.19.1"
 plugins:
   - jekyll-feed
-  - jekyll-include-cache
+  #- jekyll-include-cache
 
 # Exclude from processing.
 # The following items will not be processed, by default.
