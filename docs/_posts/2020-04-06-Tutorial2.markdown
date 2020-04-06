@@ -1,0 +1,77 @@
+---
+layout: post
+title:  "Creating the Perfect Vagrantfile"
+date:   2020-04-06 05:59:16 -0400
+categories: tutorial bash scripting vagrant
+---
+# Creating the Vagrant Box Right for PHP Development and More!
+
+*This will show how to set up vagrant boxes with scripts to automatically get the packages you need and up to date at that!*
+
+## Step 1: Finding your box and Making a Vagrantfile
+
+ a. We first need to find the vagrant box right for you. For me, since I want the latest and greatest, I will use Ubuntu 18.04, which is listed as "bionic64" under "ubuntu". So lets create our vagrant file by typing:
+
+``
+$ touch Vagrantfile
+``
+
+b. Now we need to open the file in a text editor like nano, vim or atom. This is up to you but to open it in nano you would run this command:
+
+``
+$ nano Vagrantfile
+``
+
+c. Once inside the file, to make it use ubuntu 18.04 64bit, we should add:
+
+``
+Vagrant.configure("2") do |config|
+``
+
+and
+
+``
+config.vm.box = "ubuntu/bionic64"
+``
+
+## Step 2: Opening the ports and Syncing Folders
+
+a. First, we must open our ports in order to access our virtual machines php files on the our own computer. Since we only need to access it on our local machine, we can add this line to our Vagrantfile:
+
+``
+config.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
+``
+
+This allows us to go to 127.0.0.1:8080 in our browser to access any php and html files in our html folder.
+
+b. Now that we have opened our ports, we need to sync up the html folder with our current folder so that our php files will be in the correct place to be accessed. To sync up our folders, we can add this line:
+
+``
+config.vm.synced_folder ".", "/var/www/html"
+``
+
+After this, add this to the bottom of our vagrantfile to close it off:
+
+``
+end
+``
+
+Congratulations, at this point as long as you have installed all the lamp server requisites on your virtual machine by hand, you can now access and preview your php files and use things like phpmyadmin to create mysql databases! However, we can make this easier to do through adding a script.
+
+## Step 3: Scripting in a Vagrantfile
+
+a. Adding a script to the launch of our vagrantfile will allow us to automatically install certain packages upon launch in case our box ever needs to be relaunched or destroyed without a backup. To add a script, we can add this to our Vagrantfile before "end":
+
+``
+config.vm.provision "shell", path: "script.sh"
+``
+
+b. in order to create the script, just create a script called script.sh in the same folder as our Vagrantfile and add any commands you like to it. For example in our script we could add a line to install a package like:
+
+``
+sudo apt-get install apache2 -y
+``
+
+Which installs apache2 and says y(yes) to any prompts.
+
+Create this script for whatever packages you need and then you won't have to do a thing after creating your vagrant box!
