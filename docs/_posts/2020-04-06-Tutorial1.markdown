@@ -1,0 +1,33 @@
+---
+layout: post
+title:  "Bash Scripts for SSH"
+date:   2020-04-06 04:59:16 -0400
+categories: tutorial bash scripting
+---
+# Creating a bash script to ssh into a server
+
+*This will help us create a script so that we don't have to remember the ip addresses of servers or our usernames!*
+
+## Step 1: Creating the file
+
+ a. We first need to create an .sh file named to your choice.
+To do this we can run the command
+
+``
+$ touch logintoserver.sh
+``
+
+b. Now we need to open the file in a text editor like nano, vim or atom. This is up to you but to open it in nano you would run this command:
+
+``
+$ nano logintoserver.sh
+``
+## Step 2: Writing the script
+
+a. Now that we are editing the text file for our script, we can write whatever we want. Since we want this script to ssh into a server for us, we will start with our ssh command that we would normally use. It will end up looking something like this...
+
+``
+$ ssh username@serveraddress
+``
+
+b. Congratulations, now you don't have to remember the server address in order to login, all you need to remember is your password for the server!
